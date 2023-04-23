@@ -32,15 +32,16 @@ def get_dnac_devices(token):
 
 def print_device_table(device_list):
     table = PrettyTable()
-    table.field_names = ["Hostname", "Primary IP", "Platform", "Serial Number", "Device Type", "Device Role"]
+    table.field_names = ["Hostname", "Primary IP", "Platform", "Serial", "Device Type", "Device Role", "Site"]
     for device in device_list:
-        hostname = device['hostname']
+        hostname = device['hostname'].upper()
         ip_address = device['managementIpAddress']
         software_type = device['softwareType']
         serial_number = device['serialNumber']
-        device_type = device['type']
+        device_type = device['platformId']
         role = device['role']
-        table.add_row([hostname, ip_address, software_type, serial_number, device_type, role])
+        site = device['locationName']
+        table.add_row([hostname, ip_address, software_type, serial_number, device_type, role, site])
     print(table)
 
 
